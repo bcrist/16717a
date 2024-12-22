@@ -1,0 +1,12 @@
+/image archive/
+/_notes.txt
+
+_autosave-*
+*-backups/
+*.bak
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*.kicad_prl
+fp-info-cache
+~*.lck
+*.tmp
