@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.2
+          "min_clearance": 0.3
         }
       },
       "diff_pair_dimensions": [
@@ -179,10 +179,11 @@
       ],
       "track_widths": [
         0.0,
-        0.0889,
-        0.1524,
-        0.254,
-        0.381,
+        0.1,
+        0.13,
+        0.14,
+        0.16,
+        0.4,
         0.9
       ],
       "tuning_pattern_settings": {
@@ -461,16 +462,16 @@
       {
         "bus_width": 12,
         "clearance": 0.1016,
-        "diff_pair_gap": 0.25,
+        "diff_pair_gap": 1.0,
         "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
+        "diff_pair_width": 1.0,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1524,
+        "track_width": 0.16,
         "via_diameter": 0.45,
         "via_drill": 0.3,
         "wire_width": 6
@@ -478,9 +479,9 @@
       {
         "bus_width": 12,
         "clearance": 0.1016,
-        "diff_pair_gap": 0.25,
+        "diff_pair_gap": 1.0,
         "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
+        "diff_pair_width": 1.0,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
@@ -495,16 +496,101 @@
       {
         "bus_width": 12,
         "clearance": 0.1016,
-        "diff_pair_gap": 0.25,
+        "diff_pair_gap": 0.84,
         "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
+        "diff_pair_width": 0.16,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Microstrip",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.16,
+        "via_diameter": 0.45,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1016,
+        "diff_pair_gap": 0.24,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.16,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "MicrostripCoupled",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.16,
+        "via_diameter": 0.45,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1016,
+        "diff_pair_gap": 1.0,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 1.0,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "Power",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.381,
+        "track_width": 0.4,
+        "via_diameter": 0.45,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1016,
+        "diff_pair_gap": 0.86,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.14,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Stripline",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.14,
+        "via_diameter": 0.45,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1016,
+        "diff_pair_gap": 0.17,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.13,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "StriplineCoupled",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.13,
+        "via_diameter": 0.45,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1016,
+        "diff_pair_gap": 0.36,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.14,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "StriplineSemiCoupled",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.14,
         "via_diameter": 0.45,
         "via_drill": 0.3,
         "wire_width": 6
@@ -724,6 +810,38 @@
       {
         "netclass": "Power",
         "pattern": "/-*"
+      },
+      {
+        "netclass": "MicrostripCoupled",
+        "pattern": "ZOOM_CLK_OUT*"
+      },
+      {
+        "netclass": "Stripline",
+        "pattern": "ZOOM_CLK[+-]"
+      },
+      {
+        "netclass": "StriplineCoupled",
+        "pattern": "ZOOM_CLK_{*"
+      },
+      {
+        "netclass": "StriplineSemiCoupled",
+        "pattern": "/Zoom/CLK*"
+      },
+      {
+        "netclass": "Stripline",
+        "pattern": "/Pod*/TEST*"
+      },
+      {
+        "netclass": "Stripline",
+        "pattern": "TEST_CLK_{*}"
+      },
+      {
+        "netclass": "StriplineSemiCoupled",
+        "pattern": "SYS_CLK*"
+      },
+      {
+        "netclass": "StriplineSemiCoupled",
+        "pattern": "/* Acquisition/DIN*"
       }
     ]
   },
