@@ -122,7 +122,7 @@
 			)
 		)
 	)
-	(symbol "+2.5V"
+	(symbol "+2.1V"
 		(power)
 		(pin_numbers hide)
 		(pin_names
@@ -139,7 +139,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+2.5V"
+		(property "Value" "+2.1V"
 			(at 0 3.556 0)
 			(effects
 				(font
@@ -165,7 +165,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+1.5V\""
+		(property "Description" "Power symbol creates a global label with name \"+2.1V\""
 			(at 0 0 0)
 			(effects
 				(font
@@ -183,7 +183,7 @@
 				(hide yes)
 			)
 		)
-		(symbol "+2.5V_0_1"
+		(symbol "+2.1V_0_1"
 			(polyline
 				(pts
 					(xy -0.762 1.27) (xy 0 2.54)
@@ -221,7 +221,7 @@
 				)
 			)
 		)
-		(symbol "+2.5V_1_1"
+		(symbol "+2.1V_1_1"
 			(pin power_in line
 				(at 0 0 90)
 				(length 0)
