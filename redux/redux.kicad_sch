@@ -36409,25 +36409,6 @@
 		)
 		(uuid 2a578d3f-9a41-4de3-999f-c06fce017f02)
 	)
-	(text_box "The inverting input voltage divider here is set up to generate around 2.1V, which seems approximately the correct V_{BB} for the zoom clock distribution chip's weird \"5V ECL with V_{EE} at -1.3V\".  This makes me think this whole comparator is just a big, slow level translator for some kind of feedback signal from the zoom chip."
-		(exclude_from_sim no)
-		(at 382.27 74.93 0)
-		(size 40.64 20.32)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left top)
-		)
-		(uuid "3b75fa11-750e-44ab-8229-611e2e8090c5")
-	)
 	(text_box "The 16500A backplane bus had 8 dedicated bidirectional data lines and separate unidirectional address lines.  The 16700A service manual notes that the 16700 bus is backwards compatible with that, but has been extended to allow a 16b mode with multiplexed data/address.\n\nSince all these signals just go straight into the bus interface FPGA, I don't really know what's what, so I've just named these bus interface (\"BIF\") signals based on their pin number on the backplane.\n\nNote there is also an 8b open collector bus, which I believe is what the service manual refers to as the IMB (inter-module bus) and is used for synchronizing triggers between modules.  I'm calling that bus ~{EVENT_{[0..7]}}"
 		(exclude_from_sim no)
 		(at 476.25 227.33 0)
