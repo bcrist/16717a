@@ -11863,6 +11863,10 @@
 		(uuid "719ea0c4-872a-46c0-a346-73aec01fdeda")
 	)
 	(no_connect
+		(at 214.63 81.28)
+		(uuid "78d9b304-a4f7-4359-ac90-d3233d0cb908")
+	)
+	(no_connect
 		(at 318.77 219.71)
 		(uuid "89a5e830-2f55-4793-b8ac-408fd93314d5")
 	)
@@ -27833,28 +27837,6 @@
 		(uuid "ca20dca8-897c-444b-b4b9-45918d342b60")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 333.7352 530.86 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "ZD_{3}"
-		(shape bidirectional)
-		(at 214.63 81.28 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.016 1.016)
-			)
-			(justify left)
-		)
-		(uuid "cbb0003c-79e7-4e64-aafa-d180feebd2e9")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 214.63 75.2048 90)
 			(effects
 				(font
 					(size 1.27 1.27)

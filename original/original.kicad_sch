@@ -125,7 +125,7 @@
 				)
 			)
 		)
-		(symbol "16717a:+2.5V"
+		(symbol "16717a:+2.1V"
 			(power)
 			(pin_numbers hide)
 			(pin_names
@@ -142,7 +142,7 @@
 					(hide yes)
 				)
 			)
-			(property "Value" "+2.5V"
+			(property "Value" "+2.1V"
 				(at 0 3.556 0)
 				(effects
 					(font
@@ -168,7 +168,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Power symbol creates a global label with name \"+1.5V\""
+			(property "Description" "Power symbol creates a global label with name \"+2.1V\""
 				(at 0 0 0)
 				(effects
 					(font
@@ -186,7 +186,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "+2.5V_0_1"
+			(symbol "+2.1V_0_1"
 				(polyline
 					(pts
 						(xy -0.762 1.27) (xy 0 2.54)
@@ -224,7 +224,7 @@
 					)
 				)
 			)
-			(symbol "+2.5V_1_1"
+			(symbol "+2.1V_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
@@ -37866,25 +37866,6 @@
 		)
 		(uuid 2a578d3f-9a41-4de3-999f-c06fce017f02)
 	)
-	(text_box "The inverting input voltage divider here is set up to generate around 2.1V, which seems approximately the correct V_{BB} for the zoom clock distribution chip's weird \"5V ECL with V_{EE} at -1.3V\".  This makes me think this whole comparator is just a big, slow level translator for some kind of feedback signal from the zoom chip."
-		(exclude_from_sim no)
-		(at 382.27 74.93 0)
-		(size 40.64 20.32)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left top)
-		)
-		(uuid "3b75fa11-750e-44ab-8229-611e2e8090c5")
-	)
 	(text_box "The 16500A backplane bus had 8 dedicated bidirectional data lines and separate unidirectional address lines.  The 16700A service manual notes that the 16700 bus is backwards compatible with that, but has been extended to allow a 16b mode with multiplexed data/address.\n\nSince all these signals just go straight into the bus interface FPGA, I don't really know what's what, so I've just named these bus interface (\"BIF\") signals based on their pin number on the backplane.\n\nNote there is also an 8b open collector bus, which I believe is what the service manual refers to as the IMB (inter-module bus) and is used for synchronizing triggers between modules.  I'm calling that bus ~{EVENT_{[0..7]}}"
 		(exclude_from_sim no)
 		(at 476.25 227.33 0)
@@ -55128,7 +55109,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "316"
+		(property "Value" "215"
 			(at 775.97 113.0299 0)
 			(effects
 				(font
@@ -70346,7 +70327,7 @@
 		)
 	)
 	(symbol
-		(lib_id "16717a:+2.5V")
+		(lib_id "16717a:+2.1V")
 		(at 746.76 148.59 0)
 		(mirror y)
 		(unit 1)
@@ -70365,12 +70346,13 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+2.5V"
-			(at 746.76 143.51 0)
+		(property "Value" "+2.1V"
+			(at 749.3 147.3199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
@@ -70391,7 +70373,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+1.5V\""
+		(property "Description" "Power symbol creates a global label with name \"+2.1V\""
 			(at 746.76 148.59 0)
 			(effects
 				(font
@@ -72716,7 +72698,7 @@
 		)
 	)
 	(symbol
-		(lib_id "16717a:+2.5V")
+		(lib_id "16717a:+2.1V")
 		(at 763.27 355.6 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -72734,12 +72716,13 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+2.5V"
-			(at 763.27 350.52 0)
+		(property "Value" "+2.1V"
+			(at 765.81 354.3299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -72760,7 +72743,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+1.5V\""
+		(property "Description" "Power symbol creates a global label with name \"+2.1V\""
 			(at 763.27 355.6 0)
 			(effects
 				(font
@@ -75624,7 +75607,7 @@
 		)
 	)
 	(symbol
-		(lib_id "16717a:+2.5V")
+		(lib_id "16717a:+2.1V")
 		(at 817.88 100.33 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -75642,7 +75625,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+2.5V"
+		(property "Value" "+2.1V"
 			(at 821.69 100.3299 90)
 			(effects
 				(font
@@ -75669,7 +75652,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+1.5V\""
+		(property "Description" "Power symbol creates a global label with name \"+2.1V\""
 			(at 817.88 100.33 0)
 			(effects
 				(font
