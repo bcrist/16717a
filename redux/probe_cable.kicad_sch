@@ -4037,7 +4037,7 @@
 				)
 			)
 		)
-		(property "Footprint" "fp:Probe_Connector"
+		(property "Footprint" "fp:Probe_Connector_MountingHoles"
 			(at 119.38 80.01 0)
 			(effects
 				(font
