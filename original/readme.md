@@ -2,23 +2,33 @@
 
 Note: While this board design is meant to match the original as closely as possible, I have not had it manufactured or tested.  Use at your own risk.
 
-## Intentional Changes/Fixes
-* The LM2991's `ON/OFF` pin is now tied to the `GND` pin instead of floating.  The LM2991 datasheet specifically notes that it should not be left floating.
-* Unused inputs on one of the `74LVC08` chips are now grounded.
-
 ## Theory of Operation
 
 You may also be interested in reading the official "Theory of Operation" section of the [Agilent manual](https://docs.alltest.net/manual/Alltest-Agilent-Keysight-16717A-ServiceManual-21826-.pdf), starting on page 146.  However I am hesitant to take anything it says at face value, because they describe some things which simply cannot be true based on the actual 16717A hardware.  I suspect that they probably started by copying the "Theory of Operation" section of a previous board (16712A maybe?) and missed some changes to how things work on the newer boards.  I'll try to note these issues below.
 
+### Stackup
+The 16717A uses an 8-layer board, four of which are signals:
+
+* Layer 1 (top): components, signals
+* Layer 2: ground
+* Layer 3: +5V, -5.2V, ground
+* Layer 4: signal
+* Layer 5: signal
+* Layer 6: +3.3V, -3.3V
+* Layer 7: ground
+* Layer 8 (bottom): components, signals
+
+I wasn't able to determine individual core/prepreg thicknesses, but it didn't feel like any particular layers with significantly thicker than others, so I'm guessing the dielectric thickness of all FR4 layers is somewhere around 0.2mm.
+
 ### Input Conditioning & Comparators
-Signals coming in from the probe pods are terminated and conditioned by several RC networks, and then feed into one of 8 high speed comparator ASICs (part number 1NB4-5036).  Each chip has 9 signal inputs (8 data bits + 1 clock).  Each probe pod has 16 data bits and only 1 clock, so only half the comparators actually use all the inputs; the others have one input grounded.  There is also a test clock input, and when enabled it overrides the signals on all of the inputs.
+Each signal coming in from the probe pods is length-matched and goes through a series passive component which I can't identify, but is probably a very low value inductor/ferrite/fuse (0603 package; green with a white stripe, but my LCR meter just says it's a < 1 ohm resistor).  Next each signal is terminated to ground through a 10k resistor, and further conditioned with by several RC networks before being fed into one of 8 high speed comparator ASICs (part number 1NB4-5036).  Each chip has 9 signal inputs (8 data bits + 1 clock).  Each probe pod has 16 data bits and only 1 clock, so only half the comparators actually use all the inputs; the others have one input grounded.  There is also a test clock input, and when enabled it overrides the signals on all of the inputs.
 
 The reference voltage for each chip can be configured independently, coming from an AD7841 8-channel DAC.  Interestingly, while the DAC has 8 outputs, each corresponding to one comparator chip and half of a pod's data signals, it seems there's no way in software to set half of a pod to a different threshold than the other half.
 
 The outputs from the comparators are a rather strange ECL variant which uses `Vcc` at 3.3V and `Vee` at -5.2V.  `Vbb` is therefore approximately the same as for LVPECL; around 2.1V.  The clock signal outputs are complementary (i.e. differential) and all others are single-ended.
 
 ### Probe Power & I2C
-Each pod connector receives 5V power via a TPS2011 high-side switch.  This provides current limiting in case of accidental short-circuit, and allows the power to be turned on or off as needed.  Each pod connector also contains an I2C bus, though I don't think the standard 40-pin probe cables actually connect anything to it.  The I2C bus is controlled by a PCF8584 and an analog switch to control which pod is currently being interrogated.
+Each pod connector receives 5V power via a TPS2011 high-side switch.  This provides current limiting in case of accidental short-circuit, and allows the power to be turned on or off as needed.  Each pod connector also contains an I2C bus, though I don't think the standard 40-pin probe cables actually connect anything to it.  The I2C bus is controlled by a PCF8584 and an analog switch to control which probe connector is currently being interrogated.
 
 ### Control FPGA & Backplane Interface
 Most of the operation of the 16717A module is controlled directly by an Actel A32140DX FPGA.  The FPGA interfaces with the backplane bus, generates all of the DRAM refresh timing and control signals, and controls the two main data buses (the 16 bit memory data bus and 8 bit zoom data bus).  It also controls the comparator reference voltage DAC (through the memory data bus).
@@ -79,6 +89,7 @@ The two acquisition ASICs communicate with each other, and with the ASICs on oth
 The parallel signals are either two 24 bit buses (based on their routing and pin assignments on the BGA packages) or three 16 bit buses (based on the output of `pv`'s `icrTest`).
 Half of the bits are routed between modules on the left 80 pin mezzanine connector, and the other half on the other connector.
 The signals are terminated with pullups to 1.5V, and there is a resistor network set up to provide a reference at 2/3 of this termination voltage, which makes it look a lot like GTLP signaling.  Although snooping on some of the signals while running `icrTest` shows that they are driven all the way to 0V when low.  I don't have much experience with GTLP, but my understanding is that `Vol` should be more like 0.5V, so I'm not sure if they're really using GTLP drivers or just something similar.
+Oddly, the 1.5V termination voltage is generated from a linear regulator which receives 5V through a long, winding PCB trace.  I guess the intent here was that it would act like an inductor/transmission line and help reduce noise?  There is also a footprint for a huge axial electrolytic cap on the plane side of this 5V trace.  It is unpopulated on production boards, but the 16716A prototype photos show it populated.
 
 The differential serial signals are grouped into two sets of three differential pairs, and have separate transmit and receive pins on the ASICs.  The left ASIC appears to only be capable of transmitting to the three signals on the left mezzanine connector, and the same with the right ASIC and right mezzanine connector.  The signals from the mezzanine connectors are buffered by LVPECL receivers and then routed to both ASICs, so every ASIC can listen to both "sides" of the system, even if they can only transmit on one side.  The six pins that are used to transmit on the left side are different from the six pins used on the right side, and the "unused" set from the other side of the chip is connected across to the other ASIC, but not to the mezzanine connectors.  Each ASIC "knows" whether it is left or right, so it's possible these signals are six single-ended GTLP signals rather than three complementary pairs.  It's also possible that these could be used to allow the left chip to transmit on the right mezzanine connector's differential pairs, using the right ASIC as an intermediary, and vice-versa.
 

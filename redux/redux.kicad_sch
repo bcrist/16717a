@@ -55512,7 +55512,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "51n"
+		(property "Value" "1u"
 			(at 290.83 165.1062 0)
 			(effects
 				(font
@@ -70955,7 +70955,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "51n"
+		(property "Value" "1u"
 			(at 323.85 167.6462 0)
 			(effects
 				(font
@@ -77649,7 +77649,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "51n"
+		(property "Value" "1u"
 			(at 363.22 184.1562 0)
 			(effects
 				(font

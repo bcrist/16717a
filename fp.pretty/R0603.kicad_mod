@@ -68,6 +68,17 @@
 	)
 	(attr smd)
 	(fp_rect
+		(start -0.2 -0.4)
+		(end 0.2 0.4)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill solid)
+		(layer "F.SilkS")
+		(uuid "efd045a6-8646-4c8d-9de3-13cf9a7ec155")
+	)
+	(fp_rect
 		(start -0.8 -0.4)
 		(end 0.8 0.4)
 		(stroke
@@ -83,7 +94,7 @@
 		(size 0.9 0.8)
 		(layers "F.Cu" "F.Paste" "F.Mask")
 		(roundrect_rratio 0.25)
-		(thermal_bridge_angle 45)
+		(thermal_bridge_angle 0)
 		(uuid "3033fc2d-9e79-40ec-809d-59911df9fec6")
 	)
 	(pad "2" smd roundrect
@@ -91,7 +102,7 @@
 		(size 0.9 0.8)
 		(layers "F.Cu" "F.Paste" "F.Mask")
 		(roundrect_rratio 0.25)
-		(thermal_bridge_angle 45)
+		(thermal_bridge_angle 0)
 		(uuid "28d187e9-1198-4aef-becf-ab7853707246")
 	)
 	(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.wrl"

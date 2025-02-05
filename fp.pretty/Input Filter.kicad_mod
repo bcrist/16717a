@@ -68,6 +68,39 @@
 		)
 	)
 	(attr smd)
+	(fp_rect
+		(start -1.225 -0.65)
+		(end -0.5 0.65)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill solid)
+		(layer "F.SilkS")
+		(uuid "48103dbc-8df1-4f40-8935-ebbc0d294830")
+	)
+	(fp_rect
+		(start 1.35 -0.975)
+		(end 1.55 -0.25)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill solid)
+		(layer "F.SilkS")
+		(uuid "1dd81b68-0b6e-4d5d-9a09-7ea06a78a5ff")
+	)
+	(fp_rect
+		(start 1.35 0.2375)
+		(end 1.55 0.9625)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill solid)
+		(layer "F.SilkS")
+		(uuid "bef83d5d-7087-40a8-af41-8263f8f8a0e8")
+	)
 	(pad "1" smd roundrect
 		(at -1.7 0)
 		(size 0.75 1.4)
