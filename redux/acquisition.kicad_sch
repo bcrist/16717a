@@ -8786,6 +8786,109 @@
 				)
 			)
 		)
+		(symbol "16717a:TestPoint_Small"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.762) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 3.81 0)
+				(effects
+					(font
+						(size 0.635 0.635)
+					)
+				)
+			)
+			(property "Value" "TestPoint_Small"
+				(at 0 2.032 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_Small_0_1"
+				(circle
+					(center 0 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_Small_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 0)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Device:C_Small"
 			(pin_numbers hide)
 			(pin_names
@@ -9171,16 +9274,52 @@
 		(uuid "05ebcbd1-4203-4757-bf39-07cabf9dd6a1")
 	)
 	(junction
+		(at 318.77 723.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1a2e2f66-8e04-4883-a4c6-458d15f5d6f7")
+	)
+	(junction
 		(at 226.06 165.1)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1e711a7c-9984-480d-856b-38f972b220cb")
 	)
 	(junction
+		(at 318.77 718.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2757f7e9-f662-4811-97ca-011b294f6f23")
+	)
+	(junction
+		(at 318.77 701.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "302e1c71-b461-4f6e-b453-efb5586c02bb")
+	)
+	(junction
 		(at 260.35 306.07)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5bce3ec6-9a39-490c-afd4-cbec6d1e8d40")
+	)
+	(junction
+		(at 318.77 726.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5bf5e163-ba0e-4b59-b7c9-b4a038ec6e49")
+	)
+	(junction
+		(at 318.77 713.74)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "64d4a8d2-eba3-4f4e-96d9-4bdbdc3bf942")
+	)
+	(junction
+		(at 318.77 340.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "736b50d1-0b64-4224-8bba-1683ad5070a3")
 	)
 	(junction
 		(at 240.03 303.53)
@@ -9201,10 +9340,34 @@
 		(uuid "80cb8718-bbe4-4c93-b659-07932effaea9")
 	)
 	(junction
+		(at 318.77 721.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "86e48411-58be-4109-830e-7e45c5ccb5fd")
+	)
+	(junction
 		(at 246.38 177.8)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "87bcd8ae-90cd-4291-bec4-efd155295149")
+	)
+	(junction
+		(at 318.77 690.88)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8ad70663-b57b-43e1-b195-92dfc8205149")
+	)
+	(junction
+		(at 318.77 695.96)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8bd1846a-dcf2-410e-924e-cb363be0e37e")
+	)
+	(junction
+		(at 318.77 693.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9a9907c6-bbba-419a-b0b2-d398d93fd5bc")
 	)
 	(junction
 		(at 251.46 177.8)
@@ -9213,10 +9376,52 @@
 		(uuid "9c5260ec-4e89-4aca-863c-4931e75a190e")
 	)
 	(junction
+		(at 318.77 716.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ab21f5c9-b780-427a-9d21-5047939b0344")
+	)
+	(junction
+		(at 318.77 698.5)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b4026ef9-ee3b-4384-b803-211120fece96")
+	)
+	(junction
 		(at 229.87 308.61)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b9c6cbef-722a-4358-a760-09c3ef13dd79")
+	)
+	(junction
+		(at 318.77 711.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ba4823b7-db56-4cf0-9f3e-0ffaaf372ed7")
+	)
+	(junction
+		(at 318.77 706.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d27ad7ca-ffb1-4719-9736-b98620a56de7")
+	)
+	(junction
+		(at 318.77 728.98)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d5e8245e-3f35-4552-9bbe-a4a2c03cfa81")
+	)
+	(junction
+		(at 318.7221 708.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d75da22e-70e9-4b9f-9281-b939b8c513bb")
+	)
+	(junction
+		(at 318.77 703.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "eb302d3e-8706-49fc-8586-be71d6b8147d")
 	)
 	(bus_entry
 		(at 327.66 469.9)
@@ -11777,7 +11982,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 718.82) (xy 327.66 718.82)
+			(xy 317.5 718.82) (xy 318.77 718.82)
 		)
 		(stroke
 			(width 0)
@@ -12007,6 +12212,16 @@
 	)
 	(wire
 		(pts
+			(xy 318.77 723.9) (xy 327.66 723.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1d3c5010-1703-4dd6-93cb-f624a2d3c467")
+	)
+	(wire
+		(pts
 			(xy 317.5 127) (xy 332.74 127)
 		)
 		(stroke
@@ -12157,7 +12372,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 723.9) (xy 327.66 723.9)
+			(xy 317.5 723.9) (xy 318.77 723.9)
 		)
 		(stroke
 			(width 0)
@@ -12287,7 +12502,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 726.44) (xy 327.66 726.44)
+			(xy 317.5 726.44) (xy 318.77 726.44)
 		)
 		(stroke
 			(width 0)
@@ -12367,7 +12582,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 340.36) (xy 327.66 340.36)
+			(xy 317.5 340.36) (xy 318.77 340.36)
 		)
 		(stroke
 			(width 0)
@@ -12584,6 +12799,16 @@
 			(type default)
 		)
 		(uuid "34c56159-16a2-4811-8950-919d045d7b8a")
+	)
+	(wire
+		(pts
+			(xy 318.77 340.36) (xy 327.66 340.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "34d7c032-3518-4b22-a8aa-7869a4ff0d99")
 	)
 	(wire
 		(pts
@@ -12947,7 +13172,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 706.12) (xy 327.66 706.12)
+			(xy 317.5 706.12) (xy 318.77 706.12)
 		)
 		(stroke
 			(width 0)
@@ -13057,7 +13282,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 690.88) (xy 327.66 690.88)
+			(xy 317.5 690.88) (xy 318.77 690.88)
 		)
 		(stroke
 			(width 0)
@@ -13397,6 +13622,16 @@
 	)
 	(wire
 		(pts
+			(xy 318.77 690.88) (xy 327.66 690.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5c692ab3-771b-4bc3-ac11-7e1a905526ae")
+	)
+	(wire
+		(pts
 			(xy 317.5 459.74) (xy 327.66 459.74)
 		)
 		(stroke
@@ -13414,6 +13649,16 @@
 			(type default)
 		)
 		(uuid "5d888b41-2703-43f4-a213-eeaa1e7e8841")
+	)
+	(wire
+		(pts
+			(xy 318.77 693.42) (xy 327.66 693.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5dfd8d2a-e981-45d0-b68b-11ee4676cb58")
 	)
 	(bus
 		(pts
@@ -13617,7 +13862,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 695.96) (xy 327.66 695.96)
+			(xy 317.5 695.96) (xy 318.77 695.96)
 		)
 		(stroke
 			(width 0)
@@ -13657,7 +13902,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 701.04) (xy 327.66 701.04)
+			(xy 317.5 701.04) (xy 318.77 701.04)
 		)
 		(stroke
 			(width 0)
@@ -13754,6 +13999,16 @@
 			(type default)
 		)
 		(uuid "6d4a07e0-e968-49d1-81c5-2a11040af095")
+	)
+	(wire
+		(pts
+			(xy 318.77 695.96) (xy 327.66 695.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d87b8a2-c4a6-4d54-b6fc-6805746bc205")
 	)
 	(bus
 		(pts
@@ -13975,6 +14230,16 @@
 		)
 		(uuid "76faf3c2-64d3-4387-9bbc-7f16e123a63e")
 	)
+	(wire
+		(pts
+			(xy 318.77 706.12) (xy 327.66 706.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7708b6ab-a622-4f04-8291-431590af654b")
+	)
 	(bus
 		(pts
 			(xy 347.98 294.64) (xy 330.2 294.64)
@@ -14017,7 +14282,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 698.5) (xy 327.66 698.5)
+			(xy 317.5 698.5) (xy 318.77 698.5)
 		)
 		(stroke
 			(width 0)
@@ -14037,7 +14302,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 708.66) (xy 327.66 708.66)
+			(xy 317.5 708.66) (xy 318.7221 708.66)
 		)
 		(stroke
 			(width 0)
@@ -14127,13 +14392,23 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 711.2) (xy 327.66 711.2)
+			(xy 317.5 711.2) (xy 318.77 711.2)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "7caa7d83-adbb-4392-b9aa-057f21b90314")
+	)
+	(wire
+		(pts
+			(xy 318.77 713.74) (xy 327.66 713.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7dc0c3df-384f-4ec7-a39f-9d20314c725b")
 	)
 	(bus
 		(pts
@@ -14295,6 +14570,16 @@
 		)
 		(uuid "837af76e-7c33-4fba-b740-5157e8e34be8")
 	)
+	(wire
+		(pts
+			(xy 318.77 698.5) (xy 327.66 698.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8440efad-283f-4bce-b1d2-f79cae1121ef")
+	)
 	(bus
 		(pts
 			(xy 248.92 88.9) (xy 248.92 91.44)
@@ -14304,6 +14589,16 @@
 			(type default)
 		)
 		(uuid "845f501a-8908-4c36-9708-166eba7c8e3e")
+	)
+	(wire
+		(pts
+			(xy 318.77 716.28) (xy 327.66 716.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "85ab6089-cc73-42b5-a351-66a264aa4d6d")
 	)
 	(bus
 		(pts
@@ -14627,7 +14922,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 693.42) (xy 327.66 693.42)
+			(xy 317.5 693.42) (xy 318.77 693.42)
 		)
 		(stroke
 			(width 0)
@@ -14735,6 +15030,16 @@
 		)
 		(uuid "9f8c7fda-36dc-4799-9047-d70300a8d93a")
 	)
+	(wire
+		(pts
+			(xy 318.77 711.2) (xy 327.66 711.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9fcea5e0-5327-4bf0-9a0c-d0d32cd5744e")
+	)
 	(bus
 		(pts
 			(xy 330.2 434.34) (xy 330.2 436.88)
@@ -14807,6 +15112,16 @@
 	)
 	(wire
 		(pts
+			(xy 318.77 718.82) (xy 327.66 718.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a27b1b7a-9486-4f99-95cb-a65026e696f1")
+	)
+	(wire
+		(pts
 			(xy 317.5 675.64) (xy 327.66 675.64)
 		)
 		(stroke
@@ -14874,6 +15189,16 @@
 			(type default)
 		)
 		(uuid "a4424670-c056-45b0-aa2c-6d74e1890138")
+	)
+	(wire
+		(pts
+			(xy 318.77 721.36) (xy 327.66 721.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a46554f6-c415-4273-9567-eb70bc1d93be")
 	)
 	(bus
 		(pts
@@ -15127,6 +15452,16 @@
 	)
 	(wire
 		(pts
+			(xy 318.77 701.04) (xy 327.66 701.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "af7433bb-0417-4040-8ae6-44e346a2c24b")
+	)
+	(wire
+		(pts
 			(xy 246.38 250.19) (xy 266.7 250.19)
 		)
 		(stroke
@@ -15195,6 +15530,16 @@
 		)
 		(uuid "b3f8b244-9c7e-4f74-9ecf-cbdda1c8dbed")
 	)
+	(wire
+		(pts
+			(xy 318.77 726.44) (xy 327.66 726.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b46b7622-0990-4cae-9469-2b8f970fd41d")
+	)
 	(bus
 		(pts
 			(xy 330.2 403.86) (xy 330.2 406.4)
@@ -15227,7 +15572,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 703.58) (xy 327.66 703.58)
+			(xy 317.5 703.58) (xy 318.77 703.58)
 		)
 		(stroke
 			(width 0)
@@ -15244,6 +15589,16 @@
 			(type default)
 		)
 		(uuid "b5c9817a-eb09-4630-8d87-913e85674796")
+	)
+	(wire
+		(pts
+			(xy 318.77 703.58) (xy 327.66 703.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b62da1c9-96e3-4cd6-a749-ade6dc50fdae")
 	)
 	(bus
 		(pts
@@ -15314,6 +15669,16 @@
 			(type default)
 		)
 		(uuid "b9d80be0-2a61-4026-a4db-e93992538f46")
+	)
+	(wire
+		(pts
+			(xy 318.77 728.98) (xy 327.66 728.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b9fd32e6-4bde-4e27-81c9-5bd5d50b2234")
 	)
 	(wire
 		(pts
@@ -15797,7 +16162,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 716.28) (xy 327.66 716.28)
+			(xy 317.5 716.28) (xy 318.77 716.28)
 		)
 		(stroke
 			(width 0)
@@ -15877,7 +16242,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 721.36) (xy 327.66 721.36)
+			(xy 317.5 721.36) (xy 318.77 721.36)
 		)
 		(stroke
 			(width 0)
@@ -16277,7 +16642,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 728.98) (xy 327.66 728.98)
+			(xy 317.5 728.98) (xy 318.77 728.98)
 		)
 		(stroke
 			(width 0)
@@ -16287,7 +16652,7 @@
 	)
 	(wire
 		(pts
-			(xy 317.5 713.74) (xy 327.66 713.74)
+			(xy 317.5 713.74) (xy 318.77 713.74)
 		)
 		(stroke
 			(width 0)
@@ -16334,6 +16699,16 @@
 			(type default)
 		)
 		(uuid "e8d8aade-e2e1-4fcb-a285-0917595c47a2")
+	)
+	(wire
+		(pts
+			(xy 318.7221 708.66) (xy 327.66 708.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e923e399-e9e3-4774-afac-073c395521d9")
 	)
 	(wire
 		(pts
@@ -20555,6 +20930,77 @@
 		(uuid "fd083291-2b7d-465f-9f32-ff6b1f794eed")
 	)
 	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 713.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0e1b4412-8598-4459-87a4-577f8a3ede7d")
+		(property "Reference" "TP15"
+			(at 320.04 713.74 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 711.708 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 713.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 713.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 713.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c908383b-40eb-4037-ab9c-8c17a9c1ee4d")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP16")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "16717a:GND")
 		(at 207.01 389.89 0)
 		(unit 1)
@@ -20843,6 +21289,148 @@
 		)
 	)
 	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 726.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2b07b201-f534-4418-9cb8-13c976dc468d")
+		(property "Reference" "TP5"
+			(at 320.04 726.44 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 724.408 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 726.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 726.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 726.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f80ad7ef-1149-494e-8c0d-791cf4b06e86")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP6")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 728.98 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "30bd98dd-6246-479d-b0ce-1bc1f7d89feb")
+		(property "Reference" "TP4"
+			(at 320.04 728.98 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 726.948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 728.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 728.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 728.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d4e47147-eabb-4602-bc85-01431fbf9652")
+		)
+		(instances
+			(project ""
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP4")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 241.3 384.81 0)
 		(unit 1)
@@ -20907,6 +21495,77 @@
 				)
 				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
 					(reference "#PWR0708")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 716.28 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3713fd24-afb4-4a0f-bacd-dbb240572987")
+		(property "Reference" "TP13"
+			(at 320.04 716.28 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 714.248 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 716.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 716.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 716.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0c3feb9b-0706-460b-8077-8f90b1315a8c")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP14")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP13")
 					(unit 1)
 				)
 			)
@@ -21279,6 +21938,77 @@
 		)
 	)
 	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 698.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "59e60ed4-7cf6-4e8d-9909-0841310fbeb7")
+		(property "Reference" "TP27"
+			(at 320.04 698.5 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 696.468 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 698.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 698.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 698.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5d3a15e1-c376-4002-b845-3783ccb677c3")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP28")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "16717a:GND")
 		(at 207.01 410.21 0)
 		(unit 1)
@@ -21351,6 +22081,148 @@
 		)
 	)
 	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 706.12 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "650047f1-1019-4a8c-a988-b37cf8b4c185")
+		(property "Reference" "TP21"
+			(at 320.04 706.12 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 704.088 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 706.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 706.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 706.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c578b7e0-abdc-48a2-8419-110945e12353")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP22")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 701.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "685e0f52-e633-4c74-9866-9145953e8252")
+		(property "Reference" "TP25"
+			(at 320.04 701.04 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 699.008 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 701.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 701.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 701.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e6ebf159-eb67-442f-a08a-e9ee63a827b5")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP26")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "16717a:GND")
 		(at 266.7 167.64 270)
 		(unit 1)
@@ -21417,6 +22289,77 @@
 				)
 				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
 					(reference "#PWR0328")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 690.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6b614d3d-8aa8-4734-a6b8-35ac76fda8fd")
+		(property "Reference" "TP33"
+			(at 320.04 690.88 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 688.848 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 690.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 690.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 690.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "009d0d6d-9c68-48aa-8ab9-3baf9513ab24")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP34")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP33")
 					(unit 1)
 				)
 			)
@@ -21635,6 +22578,219 @@
 				)
 				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
 					(reference "C1216")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 711.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7442e0c7-d266-4247-839c-8957984cc6b3")
+		(property "Reference" "TP17"
+			(at 320.04 711.2 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 709.168 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 711.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 711.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 711.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a6e54a0e-2868-4608-86cd-feab95fecd49")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP18")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 718.82 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "766c92fd-480d-4141-9a60-9578ddea5ca0")
+		(property "Reference" "TP11"
+			(at 320.04 718.82 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 716.788 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 718.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 718.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 718.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7f4b942c-7481-454a-aee3-a13fdb7b8038")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP12")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 340.36 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "799ffc47-6c9a-469b-a3fb-d97b6be569b0")
+		(property "Reference" "TP2"
+			(at 320.04 340.36 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 338.328 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 340.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 340.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 340.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2a2c2287-3dab-4a90-8e92-d479cbdc3b94")
+		)
+		(instances
+			(project ""
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP2")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP1")
 					(unit 1)
 				)
 			)
@@ -22149,6 +23305,148 @@
 		)
 	)
 	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 695.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "92d35dde-038f-4d18-8b10-60ac9ac482f9")
+		(property "Reference" "TP29"
+			(at 320.04 695.96 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 693.928 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 695.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 695.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 695.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "88aaa773-3d90-4773-aa6a-51e8fa45816c")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP30")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP29")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.7221 708.66 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9533de40-07f6-42ff-ba5d-afc608787699")
+		(property "Reference" "TP19"
+			(at 319.9921 708.66 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.7221 706.628 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.8021 708.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.8021 708.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.7221 708.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "389ddb8b-c84c-4224-9abb-8f006b1098ad")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP20")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small")
 		(at 241.3 387.35 180)
 		(unit 1)
@@ -22503,6 +23801,290 @@
 				)
 				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
 					(reference "#PWR0714")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 721.36 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b02ab4f4-8d9c-44d5-bc8e-147bac6b20ba")
+		(property "Reference" "TP9"
+			(at 320.04 721.36 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 719.328 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 721.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 721.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 721.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "64da06c8-35e3-44d9-a889-fcdfe82d3335")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP10")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 693.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b078d457-9501-48f9-a0ce-1a2b4701dd29")
+		(property "Reference" "TP31"
+			(at 320.04 693.42 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 691.388 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 693.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 693.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 693.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4e5b0311-1875-40e1-bef5-87d420ed8cef")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP32")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP31")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 703.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b4eeaac1-37d7-4847-b144-8f1e90878a0c")
+		(property "Reference" "TP23"
+			(at 320.04 703.58 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 701.548 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 703.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 703.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 703.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5c028963-c253-4ce1-915b-ec5af852d77d")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP24")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "16717a:TestPoint_Small")
+		(at 318.77 723.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c1c88870-ca31-4270-9ab3-aa6aebaef3a8")
+		(property "Reference" "TP7"
+			(at 320.04 723.9 0)
+			(effects
+				(font
+					(size 0.635 0.635)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint_Small"
+			(at 318.77 721.868 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "fp:TestPoint"
+			(at 323.85 723.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 323.85 723.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 318.77 723.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2f73e056-f98d-43d4-95b1-cb9fe152e3cb")
+		)
+		(instances
+			(project "redux"
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5bae7bd-5bf7-4f8d-bffe-a403f2b108c1"
+					(reference "TP8")
+					(unit 1)
+				)
+				(path "/297a5e44-67ca-4d90-a340-e47398ceebd6/e5da7901-6a7f-4137-a68d-3464f0669471"
+					(reference "TP7")
 					(unit 1)
 				)
 			)
