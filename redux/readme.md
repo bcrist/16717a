@@ -2,7 +2,7 @@
 
 TODO 3D render
 
-## Quick Stats
+# Quick Stats
 * Dimensions: 366.75mm x 206mm x 1.6mm
 * 10 layers
 * 1250 components
@@ -10,7 +10,7 @@ TODO 3D render
 * 5392 total holes
 * 3803 ~ 5048 filled & capped holes
 
-## Tools
+# Tools
 
 I would not recommend attempting to build one of these boards unless you have and know how to use the following equiment:
 
@@ -21,7 +21,7 @@ I would not recommend attempting to build one of these boards unless you have an
 * Optical stereo microscope with 20x or higher magnification
 * 22L ultrasonic cleaner (or larger; basket should be larger than 21cm x 37cm)
 
-## Stackup
+# Stackup
 
 While reverse engineering the 16717A I noticed a lot of potential signal integrity issues:
 * Most signals on the inner layers use +5V or +3.3V as a reference plane, but that is often not a power rail associated with the source and/or destination chips.
@@ -45,21 +45,23 @@ Here is the layer ordering I chose:
 
 The most important goal here is to ensure that all signal layers are adjacent to ground plane layers.  No two signal layers are adjacent to each other, and all stripline layers have ground on both sides, not just one.  Additionally, since the board is quite large, the ground and power layers are symetrical to avoid any twist/bend from copper imbalance.  The inner lower layers (layer 5 and 6), rather than having having one +5V and one +3.3V layer, are routed with mostly identical planes covering only areas that need 5V and +3.3V separately, to avoid coupling noise from one rail to the other.
 
+## JLCPCB Notes
+
 Trace widths were selected assuming JLCPCB's default 10 layer stackup (JLC10161H-2116) with 1oz outer copper and 0.5oz inner copper.  If you choose to have it manufactured elsewhere, you might need to adjust them.  For reference, JLC10161H-2116 uses four 0.2mm cores (Er = 4.6) and five 4.7mil prepregs (Er = 4.16).
 
 All 0.3mm holes should be epoxy filled and capped (JLCPCB should do this by default for 6+ layer boards).
 
-Note that JLCPCB will charge an extra $15 for any design with more than 4000 holes under 0.5mm in diameter.  This is listed on their "special cases" page, but it isn't described very clearly, and at the time of writing isn't included in their automated quoting tool.  To avoid this most power vias in the design have been set to 0.5mm, keeping the 0.3mm drill count below the 4000 hole limit, even though the total number of vias in the design is well above 4000.  All of the 0.5mm holes on the board _may_ be filled and capped, but it shouldn't be a problem if they are not.
+JLCPCB will charge an extra $15 for any design with more than 4000 holes under 0.5mm in diameter.  This is listed on their "special cases" page, but it isn't described very clearly, and at the time of writing isn't included in their automated quoting tool.  To avoid hitting this limit, most power vias in the design have been set to 0.5mm.  All of the 0.5mm holes on the board _may_ be filled and capped, but it shouldn't be a problem if they are not.
 
-Note that JLCPCB will likely charge an additional $7.50 above their quoted price for this board.  After inquiring they informed me this was due to the large number of electrical test points, though they didn't tell me exactly what the limit is before that kicks in; I decided it wasn't worth pursuing that since there's not much I could do to reduce the number of pads in the design anyway.
+Note that even working to avoid the extra drilling charges, JLCPCB will likely charge an additional $7.50 above their quoted price for this board.  After inquiring they informed me this was due to the large number of electrical test points, though they didn't tell me exactly what the limit is before that kicks in; I decided it wasn't worth pursuing that since there's not much I could do to reduce the number of pads in the design anyway.
 
-## Bringup
+# Bringup
 
 It is by no means necessary to follow these exact procedures, however if you are concerned about parts having been potentially damaged in removal from the old board, this guide allows incrementally verifying some subsystems with a minimum of time sunk into soldering hundreds of passive components.
 
 Note: I highly recommend checking all power rails for shorts after each step below, before powering up the mainframe.  The 167xx power supplies do not seem to have short-circuit protection.  I once accidentally plugged in an original 16717A "upside-down" and ended up blowing the PSU (and maybe the FPGA on the 16717A too; it wasn't working beforehand so I can't be sure).  I was using a ribbon cable backplane extender, and forgot that the mainframe was sitting on my desk upside down.  doh!  After replacing the PSU the mainframe still works fine, thankfully.  I was afraid I might have blown the backplane interface board as well, but it seems to still work fine.
 
-### 0. Component Harvesting
+## 0. Component Harvesting
 
 For the vast majority of the passive components, you can just use new parts of the same value.  Indeed, since I replaced a bunch of resistors and SOIC resistor networks with more modern 0612 (4x0603) resistor networks, you'll need to use new parts for those.  But almost all the semiconductors and connectors used are either custom, obsolete, or expensive, so you'll need to salvage parts from a donor board (presumably non-working only because of trace/via corrosion).  In particular, you'll need:
 
@@ -87,7 +89,7 @@ For the vast majority of the passive components, you can just use new parts of t
 * 25 mil pitch ribbon cable & 6x connectors.  These could likely be replaced with different but similar parts.  If you're buying a non-working 16717A on eBay, etc, make sure to check if the ribbon cable is included.  I've found some of the test equipment dealers remove them inexplicably.
 * 2x Probe cable connectors.  I've found some connectors with seem very similar to the ones HP/Agilent used, but not exactly compatible.  There might be some out there, or it might be possible to adjust the layout for a part with a slightly different layout, but the same connector form factor, but it's probably easiest to just salvage the original connectors.  Use kapton tape to avoid melting the part of the connector that peeks out over the edge of the board, then use hot air from the bottom side.  There are a lot of ground pins on these connectors, so using a preheater to bring the ground planes up to 100 or 150C is helpful.
 
-### 1. FPGA
+## 1. FPGA
 
 The first goal is to get a 16700A/B to recognize the board as a 16717A module, which indicates that the FPGA isn't completely dead, and is able to communicate with the backplane.  The main parts that need to be populated for this test are:
 
@@ -148,7 +150,7 @@ Mod   B: TEST FAILED       # "zoomAcqTest" (1, 1, -1)
 Mod   B: TEST FAILED       # "zoomChipSelTest" (1, 1, -1)
 ```
 
-### 2. Acquisition ASICs
+## 2. Acquisition ASICs
 
 By far the most difficult parts to solder are the two ASIC BGAs, so as soon as possible, we want to get them populated and verify that they haven't been destroyed by reflowing.  You may even want to do these before populating the FPGA components in the previous section.
 
@@ -175,7 +177,7 @@ TODO chipRegTest?
 TODO clksTest?
 TODO add pv output
 
-### 3. DRAM
+## 3. DRAM
 
 Next, populate the 34 DRAM chips, decoupling capacitors beneath them on the bottom side, and the RAS/CAS termination networks on the top side.
 
@@ -186,7 +188,7 @@ Once these have been populated, `pv` should report `vramDataTest`, `vramAddrTest
 TODO maybe also vramUnloadTest?
 TODO add pv output
 
-### 4. Comparators & Test Clock Generator
+## 4. Comparators & Test Clock Generator
 
 To make progress on the rest of the `pv` tests, we need to get the internal test clock working.  To do this we need to populate:
 
@@ -210,7 +212,7 @@ TODO add pv output
 
 TODO if you set the identification resistor for 16715A, does it pass all pv tests?
 
-### 5. Timing Zoom
+## 5. Timing Zoom
 
 Once everything else is working, we can add the timing zoom components:
 
@@ -237,7 +239,7 @@ There's only two things left to test now:
 
 Once you're sure a board is fully working, you may want to remove the ASIC heatsinks and reapply them with thermal adhesive rather than regular thermal compound, to avoid the chance of them falling off if the mainframe is moved while the board is inside.
 
-## Full Change List
+# Full Change List
 
 * Stackup changed to 10 layers and added layer ID area in lower right corner
 * Adjusted trace widths for JLCPCB's 10 layer stackup
