@@ -10,6 +10,17 @@ TODO 3D render
 * 5392 total holes
 * 3803 ~ 5048 filled & capped holes
 
+## Tools
+
+I would not recommend attempting to build one of these boards unless you have and know how to use the following equiment:
+
+* 70W+ soldering station (I highly recommend something compatible with Hakko T12/T15 or JBC C210/C245 tips)
+* IR preheater or temperature controlled hot plate (at least 100mm square)
+* Hot air station (e.g. Quick 861DW)
+* 1.27mm pitch BGA reballing tools (balls, stencil, etc.)
+* Optical stereo microscope with 20x or higher magnification
+* 22L ultrasonic cleaner (or larger; basket should be larger than 21cm x 37cm)
+
 ## Stackup
 
 While reverse engineering the 16717A I noticed a lot of potential signal integrity issues:
@@ -48,6 +59,34 @@ It is by no means necessary to follow these exact procedures, however if you are
 
 Note: I highly recommend checking all power rails for shorts after each step below, before powering up the mainframe.  The 167xx power supplies do not seem to have short-circuit protection.  I once accidentally plugged in an original 16717A "upside-down" and ended up blowing the PSU (and maybe the FPGA on the 16717A too; it wasn't working beforehand so I can't be sure).  I was using a ribbon cable backplane extender, and forgot that the mainframe was sitting on my desk upside down.  doh!  After replacing the PSU the mainframe still works fine, thankfully.  I was afraid I might have blown the backplane interface board as well, but it seems to still work fine.
 
+### 0. Component Harvesting
+
+For the vast majority of the passive components, you can just use new parts of the same value.  Indeed, since I replaced a bunch of resistors and SOIC resistor networks with more modern 0612 (4x0603) resistor networks, you'll need to use new parts for those.  But almost all the semiconductors and connectors used are either custom, obsolete, or expensive, so you'll need to salvage parts from a donor board (presumably non-working only because of trace/via corrosion).  In particular, you'll need:
+
+* Actel A32140DX FPGA.  I recommend removing this with hot air rather than trying to use low-temp solder (e.g. ChipQuik).  These are one-time-programmable parts, so you need one specifically from a 16715A, 16716A, or 16717A; don't use one from another model of logic analyzer or go looking for one on eBay, etc, or you will be disappointed.
+* 2x BGA ASICs with heatsinks.  The heatsinks are attached to a brass heat spreader using a thermally conductive "tape".  Heating it up to ~100C with hot air will soften the adhesive, allowing you to begin peeling off the heatsinks with a plastic spudger.  Once the heatsinks are removed, you can use hot air and a preheater to remove the BGAs themselves.
+* 8x 1NB4-5036 comparators - custom HP part; can be reused from any HP logic analyzer using 40-pin (non-differential) probes.
+* 5x 1NB4-5040 zoom FISO chips - custom HP part.
+* 1821-4731 zoom clock distribution chip - custom HP part.
+* 34x OKI MSM5416283 dual port DRAM chips - discontinued/obsolete.  On some of my boards, these chips show signs of rust on the pins of these chips, which I don't think is related to the corrosion on the bottom of the board.  I've done my best to clean and re-tin the legs with solder, but it makes me wonder if these will be the weak link that eventually causes most boards to fail once the trace/via corrosion has been removed from the equation.  On the bright side, with 34 of them on each board, sacrificing one board should provide spares to hopefully fix many others.
+* SY89421V PLL chip - discontinued/obsolete.
+* SN74FB2040 BTL transceiver - obsolete, though still available via Rochester Electronics at $300+ for a few dozen chips.
+* AD7841 DAC - still available at time of writing, but costs $75 each in small quantities.
+* 2x AD586 voltage references - still available at time of writing, but costs $12 each in small quantites.
+* PCF8584 I2C controller - At time of writing, "last time buy" at DigiKey, and costs $7 each in small quantites.  I'm not actually sure if this part is even necessary; AFAIK the probe cables normally used with the 16717A do not actually connect anything to the I2C signals.
+* ECL logic chips: 1x MC10EL34, 1x MC100LVEL11, 1x MC100LVEL14, 8x MC100LVEL16.  These are all still available new, but they're quite expensive.
+* 12x MRF9511LT1 NPN transistors (SOT-143 packages near the inter-board connectors).  I'm not 100% certain that this is what these are, but based on the package code and "B E E C" on the silkscreen nearby (which matches the pinout of the MRF9511LT1) I'm fairly sure.  Unfortunately these are obsolete, so you'll need to remove and reuse them or find a modern part with similar specs.
+* NEL HS-2810 101 MHz oscillator - discontinued/obsolete.  One of my boards has some rust on the case of this oscillator.  If necessary, you could probably make a small daughterboard with a modern 101 MHz oscillator with differential output to replace this.
+* SG-615P 19.6608MHz oscillator - discontinued/obsolete, but I have adjusted the footprint for this oscillator so that any 19.6608 MHz oscillator with TTL output should fit.
+* 5x through-hole ferrites & 2x SMD ferrites - these could probably be replaced with any other ferrites, but they're not hard to remove and reuse.
+* 68x unknown input protection inductor/ferrite/fuse.  I have no idea what exactly these green and white 0603 components are, as my LCR meter just says they're 0.1 ohm resistors, but I suspect they're something more exotic.  They're marked as fuses in the schematic but they could easily be low value inductors/ferrites as well.
+* 20x 4816P-B07-000 custom resistor networks.  4816P is/was a common series of SOIC resistor networks, but these are a decidedly nonstandard form, with each network containing four independent networks of three resistors each.  They could likely be replaced with discrete resistors, but it would require significant rework to the board layout.  Alternatively, you could probably make a small PCB with castellated pads in the shape of a SOIC-16 with the required discrete resistors.  But I'm just reusing these for now.
+* 3x small heatsinks for LDOs.  These could probably be replaced with any other little glue-on heatsinks if you prefer.
+* 4x 3M P08-080-SL-A-G mezannine connectors.  These are obsolete, but it may be possible to find some new-old-stock supplies still.  Otherwise, remove them very carefully with a preheater and relatively low-temp hot air.  I found that preheating to 150C and setting my station to 280C worked well.  Unfortunately, corrosion on the bottom on these boards sometimes destroys the gold plating on these connectors' contacts.  Of course, if you don't plan to use the board in a multi-module configuration, you can just ignore these.
+* AMP 1-534204-4 backplane connector.  These are technically still actively produced, but are not stocked at any of the usual distributors, and are $19 each even when you order a whole box of 300.  So again, I chose to just remove the old one with hot air.  Alternatively, a regular 2x36 right-angle 0.1" header could be used, but the pins would need to be shifted a centimeter or so towards the front.  There is room for this, but it would require a lot of layout adjustments.
+* 25 mil pitch ribbon cable & 6x connectors.  These could likely be replaced with different but similar parts.  If you're buying a non-working 16717A on eBay, etc, make sure to check if the ribbon cable is included.  I've found some of the test equipment dealers remove them inexplicably.
+* 2x Probe cable connectors.  I've found some connectors with seem very similar to the ones HP/Agilent used, but not exactly compatible.  There might be some out there, or it might be possible to adjust the layout for a part with a slightly different layout, but the same connector form factor, but it's probably easiest to just salvage the original connectors.  Use kapton tape to avoid melting the part of the connector that peeks out over the edge of the board, then use hot air from the bottom side.  There are a lot of ground pins on these connectors, so using a preheater to bring the ground planes up to 100 or 150C is helpful.
+
 ### 1. FPGA
 
 The first goal is to get a 16700A/B to recognize the board as a 16717A module, which indicates that the FPGA isn't completely dead, and is able to communicate with the backplane.  The main parts that need to be populated for this test are:
@@ -60,11 +99,54 @@ The first goal is to get a 16700A/B to recognize the board as a 16717A module, w
 
 TODO add board images highlighting components that need to be populated
 
-Once these components have been populated, the board should be selectable in `vp` and `pv`, although most of the `pv` tests will fail:
+Once these components have been populated, the board should be selectable in `pv`, but all of the tests will fail:
 
-TODO chipRegTest?
-
-TODO add pv output
+```
+$ pv
+Shared Memory Segment 204 attached at Virtual Address: 0xc0dbf000
+DMA Shared Memory is mapped to Physical Address: 0x4e9b000
+Second half of DMA Shared Memory is mapped to Physical Address: 0x4c57000
+RPC system Initialized (Program=700016505, Version=1)
+pv> l
+# Model 16702B
+# System Memory=256 Mbytes, PCI device=1, PCI driver=1.01
+Mod CPU: System CPU Board
+Mod PCI: 16702B System PCI Board
+Mod A  : Empty slot
+Mod B  : (0x2e) 16717A 333MHz State/2GHz Timing Zoom 2M Sample
+Mod C  : Empty slot
+Mod D  : Empty slot
+Mod E  : Empty slot
+Mod 1  : Empty slot
+Mod 2  : Empty slot
+pv> s b
+Module index=B
+pv> x modtests
+Mod   B: TEST FAILED       # "vramDataTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "vramAddrTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "vramCellTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "vramUnloadTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "chipRegTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "bpClkTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "cmpTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "icrTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "flagTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "armTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "vramSerDataTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "vramSerCellTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "clksTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "calTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "zoomDataTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "zoomMasterTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "fisoRedundancyTest" (1, 1, -1)
+  Mod B: Unable to Detect WRAP Flag.  Possible Board Fault.
+Mod   B: TEST FAILED       # "zoomAcqTest" (1, 1, -1)
+  Mod B: Unable to Detect WRAP Flag.  Possible Board Fault.
+  Mod B: Unable to Detect WRAP Flag.  Possible Board Fault.
+  Mod B: Unable to Detect WRAP Flag.  Possible Board Fault.
+  Mod B: Unable to Detect WRAP Flag.  Possible Board Fault.
+Mod   B: TEST FAILED       # "zoomChipSelTest" (1, 1, -1)
+```
 
 ### 2. Acquisition ASICs
 
@@ -81,17 +163,16 @@ Once you are confident that all the BGA balls are attached properly, you can ins
 * Transistors and ECL buffers near the board-to-board connectors near the edge of the board (used to synchronize clocks between the ASICs)
 * Linear regulator for the +1.5V GTLP termination voltage, along with various associated resistors and capacitors
 * MMBT3906 transistor and base resistor (allows FPGA to control biasing of inter-module clocks)
-* 74FB2040 BTL transciever, 74ABT540 inverting buffer, and associated passives (forwards async signals from the backplane/FPGA to the ASICs)
+* 74FB2040 BTL transceiver, 74ABT540 inverting buffer, and associated passives (forwards async signals from the backplane/FPGA to the ASICs)
 * ECL clock buffer for the 100 MHz backplane clock, along with associated passives
 * Some additional passives near the FPGA, related to ASIC control signals
 
 TODO add board images highlighting components that need to be populated
 
-Once these components have been populated, `pv` should show the board passing `icrTest` and `clksTest` (maybe?)
+Don't forget to put the ASIC heatsinks on with some thermal compound before attempting to power up the board.  While the heatsinks seem to stay pretty cool when the board is idle, I'm not sure how long they can run without any heatsinks at all.  With these components now populated, `pv` should show the board passing `bpClkTest` and `icrTest`:
 
 TODO chipRegTest?
-TODO bpClkTest?
-
+TODO clksTest?
 TODO add pv output
 
 ### 3. DRAM
@@ -137,8 +218,8 @@ Once everything else is working, we can add the timing zoom components:
 * 74LVC08 quad AND gates (2x)
 * 1821-4731 zoom clock distribution chip
 * LM311 comparator
-* NEL HS-2810 ECL zoom base clock oscillator
-* 100LVEL16 zoom base clock buffer
+* NEL HS-2810 ECL zoom reference oscillator
+* 100LVEL16 zoom reference clock buffer
 * SY89421V zoom clock PLL
 * 100LVEL16 zoom clock buffer (after ribbon cable)
 * +3.3V and -1.7V linear regulators for the PLL and zoom clock chips
@@ -153,6 +234,8 @@ TODO add pv output
 There's only two things left to test now:
 * Testing the board with real probes and signals.  I'll let you decide exactly how you want to do that.  If `pv` doesn't report any errors, but something isn't working, it's likely either a faulty comparator chip, a problem with one of the input filtering networks, or a bad probe/cable.
 * Testing the board when used in a multi-card configuration.  Make sure both/all boards pass all `pv` tests in master configuration before attempting to use them together.  If `pv` reports errors in a multi-card configuration, but not when the boards are all masters, it probably means there's a problem with the circuitry near the board-to-board connectors, or the FFC connectors/cables themselves.
+
+Once you're sure a board is fully working, you may want to remove the ASIC heatsinks and reapply them with thermal adhesive rather than regular thermal compound, to avoid the chance of them falling off if the mainframe is moved while the board is inside.
 
 ## Full Change List
 
