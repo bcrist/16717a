@@ -66,7 +66,7 @@ Note: I highly recommend checking all power rails for shorts after each step bel
 For the vast majority of the passive components, you can just use new parts of the same value.  Indeed, since I replaced a bunch of resistors and SOIC resistor networks with more modern 0612 (4x0603) resistor networks, you'll need to use new parts for those.  But almost all the semiconductors and connectors used are either custom, obsolete, or expensive, so you'll need to salvage parts from a donor board (presumably non-working only because of trace/via corrosion).  In particular, you'll need:
 
 * Actel A32140DX FPGA.  I recommend removing this with hot air rather than trying to use low-temp solder (e.g. ChipQuik).  These are one-time-programmable parts, so you need one specifically from a 16715A, 16716A, or 16717A; don't use one from another model of logic analyzer or go looking for one on eBay, etc, or you will be disappointed.
-* 2x BGA ASICs with heatsinks.  The heatsinks are attached to a brass heat spreader using a thermally conductive "tape".  Heating it up to ~100C with hot air will soften the adhesive, allowing you to begin peeling off the heatsinks with a plastic spudger.  Once the heatsinks are removed, you can use hot air and a preheater to remove the BGAs themselves.
+* 2x BGA ASICs with heatsinks.  The heatsinks are attached to a brass heat spreader using a thermally conductive "tape".  Heating it up to ~100C with hot air will soften the adhesive, allowing you to begin peeling off the heatsinks with a plastic spudger.  Once the heatsinks are removed, you can use a hotplate or hot air and a preheater to remove the BGAs themselves.  Once removed, clean up the pads and reball with 0.76mm balls.  Be careful not to use too hot an iron or drag it with too much force when cleaning up the pads; the soldermask used is slightly thicker than a normal PCB's, but it seems to be somewhat softer than a normal soldermask as well.
 * 8x 1NB4-5036 comparators - custom HP part; can be reused from any HP logic analyzer using 40-pin (non-differential) probes.
 * 5x 1NB4-5040 zoom FISO chips - custom HP part.
 * 1821-4731 zoom clock distribution chip - custom HP part.
@@ -88,6 +88,7 @@ For the vast majority of the passive components, you can just use new parts of t
 * AMP 1-534204-4 backplane connector.  These are technically still actively produced, but are not stocked at any of the usual distributors, and are $19 each even when you order a whole box of 300.  So again, I chose to just remove the old one with hot air.  Alternatively, a regular 2x36 right-angle 0.1" header could be used, but the pins would need to be shifted a centimeter or so towards the front.  There is room for this, but it would require a lot of layout adjustments.
 * 25 mil pitch ribbon cable & 6x connectors.  These could likely be replaced with different but similar parts.  If you're buying a non-working 16717A on eBay, etc, make sure to check if the ribbon cable is included.  I've found some of the test equipment dealers remove them inexplicably.
 * 2x Probe cable connectors.  I've found some connectors with seem very similar to the ones HP/Agilent used, but not exactly compatible.  There might be some out there, or it might be possible to adjust the layout for a part with a slightly different layout, but the same connector form factor, but it's probably easiest to just salvage the original connectors.  Use kapton tape to avoid melting the part of the connector that peeks out over the edge of the board, then use hot air from the bottom side.  There are a lot of ground pins on these connectors, so using a preheater to bring the ground planes up to 100 or 150C is helpful.
+* 4x PEM press-fit threaded nuts & back panel bracket.  These nuts are likely still available, but I'm not sure exactly what model number they are.  I recommend using a screw or standoff to remove these.  Hold the screw with pliers/vice-grips and rock back and forth until the inserts are free.  Note that removal will likely cause damage to the donor board.
 
 ## 1. FPGA
 
@@ -150,11 +151,13 @@ Mod   B: TEST FAILED       # "zoomAcqTest" (1, 1, -1)
 Mod   B: TEST FAILED       # "zoomChipSelTest" (1, 1, -1)
 ```
 
+Note: I don't recommend installing the back panel bracket/screws yet.  You can use zip ties to create pull loops for removing the board from a mainframe after testing.
+
 ## 2. Acquisition ASICs
 
 By far the most difficult parts to solder are the two ASIC BGAs, so as soon as possible, we want to get them populated and verify that they haven't been destroyed by reflowing.  You may even want to do these before populating the FPGA components in the previous section.
 
-If you're not comfortable soldering BGAs I'd suggest practicing on something less rare/useful first.  Your mileage may vary but what works well for me is preheating from the bottom with a hotplate or IR preheater to around 120-150C, followed by low speed hot air from above at around 320C.
+If you're not comfortable reballing and soldering BGAs I'd suggest practicing on something less rare/useful first.  You may find the [`bga_stencil`](../bga_stencil/) directory useful when reballing the chips.  Once reballed, I found that soldering the chips with a hotplate only worked best.  Use polyimide tape to protect the soldermask while clamping the board to a hotplate (clamping is necessary to prevent any warping) and avoid using any hot air from above.  Too much heat can cause the interposer to warp slightly.  If this happens too much it may cause some of the outer balls to not make contact.  Heating only through the board itself helps prevent this.  Wait for the board to fully cool before unclamping it from the hotplate.
 
 After soldering, use a multimeter in diode/resistance/continuity mode to check that each of the test points on the back side of the board has a solid connection to the chip.  There are also a few test points on the top side for signals that never traverse a via.
 
@@ -166,16 +169,51 @@ Once you are confident that all the BGA balls are attached properly, you can ins
 * Linear regulator for the +1.5V GTLP termination voltage, along with various associated resistors and capacitors
 * MMBT3906 transistor and base resistor (allows FPGA to control biasing of inter-module clocks)
 * 74FB2040 BTL transceiver, 74ABT540 inverting buffer, and associated passives (forwards async signals from the backplane/FPGA to the ASICs)
-* ECL clock buffer for the 100 MHz backplane clock, along with associated passives
+* ECL clock buffer for the 100 MHz backplane clock, along with associated passives and the -3.3V power rail passives
 * Some additional passives near the FPGA, related to ASIC control signals
 
 TODO add board images highlighting components that need to be populated
 
-Don't forget to put the ASIC heatsinks on with some thermal compound before attempting to power up the board.  While the heatsinks seem to stay pretty cool when the board is idle, I'm not sure how long they can run without any heatsinks at all.  With these components now populated, `pv` should show the board passing `bpClkTest` and `icrTest`:
+It's probably not necessary for testing at this point, but I would recommend reattaching the ASIC heatsinks with some thermal compound before any attempt to power up the board.  I forgot this during one test, yet after running `pv` tests and then idling for a few minutes and shutting down the system, the heatspreaders felt cold to the touch.  Yet HP put large heatsinks on these chips for a reason.  Perhaps they only put out significant heat when running a high speed acquisition, but better to be safe than sorry.
 
-TODO chipRegTest?
-TODO clksTest?
-TODO add pv output
+With these components now populated, `pv` should show the board passing `chipRegTest`, `bpClkTest`, `icrTest`, `flagTest`, and `armTest`:
+
+```
+$ pv
+Shared Memory Segment 4 attached at Virtual Address: 0xc0dbf000
+DMA Shared Memory is mapped to Physical Address: 0x4d85000
+Second half of DMA Shared Memory is mapped to Physical Address: 0x4d89000
+RPC system Initialized (Program=700016505, Version=1)
+pv> s b
+Module index=B
+pv> x modtests
+Mod   B: TEST FAILED       # "vramDataTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "vramAddrTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "vramCellTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "vramUnloadTest" (1, 1, -1)
+Mod   B: TEST passed       # "chipRegTest" (1, 0, 1)
+Mod   B: TEST passed       # "bpClkTest" (1, 0, 1)
+Mod   B: TEST FAILED       # "cmpTest" (1, 1, -1)
+Mod   B: TEST passed       # "icrTest" (1, 0, 1)
+Mod   B: TEST passed       # "flagTest" (1, 0, 1)
+Mod   B: TEST passed       # "armTest" (1, 0, 1)
+Mod   B: TEST FAILED       # "vramSerDataTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "vramSerCellTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "clksTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "calTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "zoomDataTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "zoomMasterTest" (1, 1, -1)
+Mod   B: TEST FAILED       # "fisoRedundancyTest" (1, 1, -1)
+  Mod B: Unable to Detect WRAP Flag.  Possible Board Fault.
+Mod   B: TEST FAILED       # "zoomAcqTest" (1, 1, -1)
+  Mod B: Unable to Detect WRAP Flag.  Possible Board Fault.
+  Mod B: Unable to Detect WRAP Flag.  Possible Board Fault.
+  Mod B: Unable to Detect WRAP Flag.  Possible Board Fault.
+  Mod B: Unable to Detect WRAP Flag.  Possible Board Fault.
+Mod   B: TEST FAILED       # "zoomChipSelTest" (1, 1, -1)
+```
+
+If any of these tests fails, it's likely due to an unconnected BGA ball somewhere.  Try setting `d d=9` and/or `d r=9` and rerunning the failing test to get more details.  When `pv` refers to "Chip 8" it means the one closer to the ribbon cable connectors, test clock generation, and zoom clock circuitry.  "Chip 9" refers to the other ASIC.
 
 ## 3. DRAM
 
@@ -183,10 +221,44 @@ Next, populate the 34 DRAM chips, decoupling capacitors beneath them on the bott
 
 TODO add board images highlighting components that need to be populated
 
-Once these have been populated, `pv` should report `vramDataTest`, `vramAddrTest`, and `vramCellTest` passing:
+Once these have been populated, `pv` should report all the `vram*` tests passing, as well as `clksTest`, and all of the previously passing tests:
 
-TODO maybe also vramUnloadTest?
-TODO add pv output
+```
+$ pv
+Shared Memory Segment 203 attached at Virtual Address: 0xc0d5b000
+DMA Shared Memory is mapped to Physical Address: 0x45b2000
+Second half of DMA Shared Memory is mapped to Physical Address: 0x43cf000
+RPC system Initialized (Program=700016505, Version=1)
+pv> s c
+Module index=C
+pv> x modtests
+Mod   C: TEST passed       # "vramDataTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramAddrTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramCellTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramUnloadTest" (1, 0, 1)
+Mod   C: TEST passed       # "chipRegTest" (1, 0, 1)
+Mod   C: TEST passed       # "bpClkTest" (1, 0, 1)
+Mod   C: TEST FAILED       # "cmpTest" (1, 1, -1)
+Mod   C: TEST passed       # "icrTest" (1, 0, 1)
+Mod   C: TEST passed       # "flagTest" (1, 0, 1)
+Mod   C: TEST passed       # "armTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramSerDataTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramSerCellTest" (1, 0, 1)
+Mod   C: TEST passed       # "clksTest" (1, 0, 1)
+Mod   C: TEST FAILED       # "calTest" (1, 1, -1)
+Mod   C: TEST FAILED       # "zoomDataTest" (1, 1, -1)
+Mod   C: TEST FAILED       # "zoomMasterTest" (1, 1, -1)
+Mod   C: TEST FAILED       # "fisoRedundancyTest" (1, 1, -1)
+Mod   C: TEST FAILED       # "zoomAcqTest" (1, 1, -1)
+Mod   C: TEST FAILED       # "zoomChipSelTest" (1, 1, -1)
+```
+
+If `pv` reports errors for all chips on `vramDataTest` or `vramAddrTest`, it likely means that one or more of the memory data or address lines are shorted together, or shorted to one of the power rails.  The easiest way to track this down is with a DMM capable of precisely measuring low-ohm resistances (e.g. HP 3478A).  The location of a short will show very near 0 ohms, increasing by around 200 mOhm for the same pins on adjacent DRAMs, and up to several ohms for chips very far from the short.  Once you find the short, if there is no solder bridge, the chip is likely damaged internally.
+
+If `pv` reports errors with only a specific chip, then the problem is likely an unconnected pin, cold solder joint, or internally broken bond wire.  this diagram may help track down which one is faulty:
+
+TODO add image showing VRAM numbers
+
 
 ## 4. Comparators & Test Clock Generator
 
@@ -237,7 +309,7 @@ There's only two things left to test now:
 * Testing the board with real probes and signals.  I'll let you decide exactly how you want to do that.  If `pv` doesn't report any errors, but something isn't working, it's likely either a faulty comparator chip, a problem with one of the input filtering networks, or a bad probe/cable.
 * Testing the board when used in a multi-card configuration.  Make sure both/all boards pass all `pv` tests in master configuration before attempting to use them together.  If `pv` reports errors in a multi-card configuration, but not when the boards are all masters, it probably means there's a problem with the circuitry near the board-to-board connectors, or the FFC connectors/cables themselves.
 
-Once you're sure a board is fully working, you may want to remove the ASIC heatsinks and reapply them with thermal adhesive rather than regular thermal compound, to avoid the chance of them falling off if the mainframe is moved while the board is inside.
+Once you're sure a board is fully working, you may want to remove the ASIC heatsinks and reapply them with thermal adhesive rather than regular thermal compound, to avoid the chance of them falling off if the mainframe is moved while the board is inside.  If you haven't yet installed the back panel bracket, do that now as well.
 
 # Full Change List
 
