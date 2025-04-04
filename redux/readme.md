@@ -257,7 +257,8 @@ If `pv` reports errors for all chips on `vramDataTest` or `vramAddrTest`, it lik
 
 If `pv` reports errors with only a specific chip, then the problem is likely an unconnected pin, cold solder joint, or internally broken bond wire.  this diagram may help track down which one is faulty:
 
-TODO add image showing VRAM numbers
+
+![pv_chips](./pv_chips.png)
 
 
 ## 4. Comparators & Test Clock Generator
