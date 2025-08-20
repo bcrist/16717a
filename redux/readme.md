@@ -43,7 +43,7 @@ Here is the layer ordering I chose:
 * Layer 9: ground
 * Layer 10 (bottom): components, signals
 
-The most important goal here is to ensure that all signal layers are adjacent to ground plane layers.  No two signal layers are adjacent to each other, and all stripline layers have ground on both sides, not just one.  Additionally, since the board is quite large, the ground and power layers are symetrical to avoid any twist/bend from copper imbalance.  The inner lower layers (layer 5 and 6), rather than having having one +5V and one +3.3V layer, are routed with mostly identical planes covering only areas that need 5V and +3.3V separately, to avoid coupling noise from one rail to the other.
+The most important goal here is to ensure that all signal layers are adjacent to ground plane layers.  No two signal layers are adjacent to each other, and all stripline layers have ground on both sides, not just one.  Additionally, since the board is quite large, the ground and power layers are symetrical to avoid any twist/bend from copper imbalance.  The inner power layers (layer 5 and 6), rather than having having one +5V and one +3.3V layer, are routed with mostly identical planes covering only areas that need 5V and +3.3V separately, to avoid coupling noise from one rail to the other.
 
 ## JLCPCB Notes
 
@@ -102,7 +102,9 @@ The first goal is to get a 16700A/B to recognize the board as a 16717A module, w
 
 TODO add board images highlighting components that need to be populated
 
-Once these components have been populated, the board should be selectable in `pv`, but all of the tests will fail:
+Note: I don't recommend installing the back panel bracket/screws yet.  You can use zip ties to create pull loops for removing the board from a mainframe after testing.
+
+Once these components have been populated, the board should be selectable in `pv`, but all of the tests should fail:
 
 ```
 $ pv
@@ -151,7 +153,22 @@ Mod   B: TEST FAILED       # "zoomAcqTest" (1, 1, -1)
 Mod   B: TEST FAILED       # "zoomChipSelTest" (1, 1, -1)
 ```
 
-Note: I don't recommend installing the back panel bracket/screws yet.  You can use zip ties to create pull loops for removing the board from a mainframe after testing.
+You may see `bpClkTest` report a pass, but it's a false-positive.  If you run the test with debug mode enabled, you can see that the test is only checking for a frequency above certain thresholds.
+The PLLs mentioned are inside the acquisition ASICs, so without them populated, it's just picking up random interference.  If it happens to get a "frequency" over 158 MHz, it will consider the test successful.
+
+```
+pv> x bpClkTest
+  Mod B: Measurement Did Not Complete.
+  Testing 100 MHz - PLL bypass mode:
+    Slot B, Chip 9: exp: > 9500000, actual: 151783694
+    Slot B, Chip 8: exp: > 9500000, actual: 151783694
+  Testing PLL at 166.67 MHz:
+    Slot B, Chip 9: exp: >15833333, actual: 151783694
+    Slot B, Chip 8: exp: >15833333, actual: 151783694
+```
+
+You may or may not see the "Unable to Detect WRAP Flag" lines, but if they do appear, they should go away once the remaining passives around the FPGA are populated.
+
 
 ## 2. Acquisition ASICs
 
@@ -179,13 +196,6 @@ It's probably not necessary for testing at this point, but I would recommend rea
 With these components now populated, `pv` should show the board passing `chipRegTest`, `bpClkTest`, `icrTest`, `flagTest`, and `armTest`:
 
 ```
-$ pv
-Shared Memory Segment 4 attached at Virtual Address: 0xc0dbf000
-DMA Shared Memory is mapped to Physical Address: 0x4d85000
-Second half of DMA Shared Memory is mapped to Physical Address: 0x4d89000
-RPC system Initialized (Program=700016505, Version=1)
-pv> s b
-Module index=B
 pv> x modtests
 Mod   B: TEST FAILED       # "vramDataTest" (1, 1, -1)
 Mod   B: TEST FAILED       # "vramAddrTest" (1, 1, -1)
@@ -213,7 +223,11 @@ Mod   B: TEST FAILED       # "zoomAcqTest" (1, 1, -1)
 Mod   B: TEST FAILED       # "zoomChipSelTest" (1, 1, -1)
 ```
 
-If any of these tests fails, it's likely due to an unconnected BGA ball somewhere.  Try setting `d d=9` and/or `d r=9` and rerunning the failing test to get more details.  When `pv` refers to "Chip 8" it means the one closer to the ribbon cable connectors, test clock generation, and zoom clock circuitry.  "Chip 9" refers to the other ASIC.
+If any of the tests shown passing above fail, try setting `d d=9` and/or `d r=9` and rerunning the failing test to get more details.  When `pv` refers to "Chip 8" it means the one closer to the ribbon cable connectors and 101MHz oscillator.  "Chip 9" refers to the ASIC closer to the AD7841 DAC.
+
+If you see `bpClkTest` reporting a frequency of 0 for both Chip 8 and Chip 9, the problem may lie with the ECL clock buffer near the backplane connector, or one of the passives near it.  Check for shorts and verify that it has continueity to the proper ASIC pins.  If only one of the chips reports a bad frequencies, but you're reasonably certain that the clock balls are making a good connection, the ASIC may have gone bad.
+
+If any of the other tests fail, it's likely due to an unconnected BGA ball somewhere, or a bad ASIC.
 
 ## 3. DRAM
 
@@ -224,13 +238,6 @@ TODO add board images highlighting components that need to be populated
 Once these have been populated, `pv` should report all the `vram*` tests passing, as well as `clksTest`, and all of the previously passing tests:
 
 ```
-$ pv
-Shared Memory Segment 203 attached at Virtual Address: 0xc0d5b000
-DMA Shared Memory is mapped to Physical Address: 0x45b2000
-Second half of DMA Shared Memory is mapped to Physical Address: 0x43cf000
-RPC system Initialized (Program=700016505, Version=1)
-pv> s c
-Module index=C
 pv> x modtests
 Mod   C: TEST passed       # "vramDataTest" (1, 0, 1)
 Mod   C: TEST passed       # "vramAddrTest" (1, 0, 1)
@@ -272,8 +279,8 @@ To make progress on the rest of the `pv` tests, we need to get the internal test
 * A variety of miscellaneous capacitors and resistors near the comparators
 * All of the 4816P-B07-000 custom resistor networks
 * Two TPS2011 high-side switches
-* The -3.3V and -5.2V backplane ferrites and bulk capacitors
-* Two small capacitors on the -12V and +12V rails, near the backplane connector
+* The -5.2V backplane ferrite and bulk capacitor
+* Two small capacitors on the -12V and +12V rails, under the backplane connector
 * The AD7841 DAC and two AD586 references, along with their associated passives
 * The PCF8584 controller, 74CBT3125 mux, and a few remaining passives on the FPGA side of the board
 
@@ -282,6 +289,44 @@ TODO add board images highlighting components that need to be populated
 At this point, the only parts not populated should be zoom-related, and we effectively have a 16715A board that thinks it's a 16717A.  Only the last five `pv` tests should fail:
 
 TODO add pv output
+
+Note: The output of `cmpTest` with debug result logging enabled can be really useful, but it can also be tricky to decipher.  At first glance, it seems like there's way too much output.  It can be helpful to see what it looks like when none of the comparators are populated:
+```
+pv> d r=9
+debugLevel=0, mode=0, resultLevel=9
+pv> x cmpTest
+  Mod C: Measurement Did Not Complete.
+  Check POD1 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 9: . ........ ........  B BBBBBBBB BBBBBBBB  Cal Clk Levels
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 9: . ........ ........  B BBBBBBBB BBBBBBBB  Cal Clk Activity
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Activity
+  Check POD2 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 9: B BBBBBBBB BBBBBBBB  . ........ ........  Cal Clk Levels
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 9: B BBBBBBBB BBBBBBBB  . ........ ........  Cal Clk Activity
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Activity
+  Check POD3 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 8: . ........ ........  B BBBBBBBB BBBBBBBB  Cal Clk Levels
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Activity
+    Slot C, Chip 8: . ........ ........  B BBBBBBBB BBBBBBBB  Cal Clk Activity
+  Check POD4 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 8: B BBBBBBBB BBBBBBBB  . ........ ........  Cal Clk Levels
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Activity
+    Slot C, Chip 8: B BBBBBBBB BBBBBBBB  . ........ ........  Cal Clk Activity
+> Slot C: Comparator Test Failed!
+```
+We can see that it tests each pod individually, and each each test consists of several parts: first testing that all the signals for the pod report high/low when the threshold voltage is well above or below the test clock signal ("Cal Clk No Act." and "Cal Clk Levels") and only then testing that the 50MHz test clock signal is seen on all signals of the pod when the threshold voltage is set in the middle of the test clock ("Cal Clk Activity").  In all three cases, all the comparators for other pods have their thresholds configured so that no signals are seen, so if you see `B` for any of the `.` spots above, you probably have a bad comparator or DAC, or maybe a shorted resistor, rather than an open circuit on one of your signal lines.
 
 TODO if you set the identification resistor for 16715A, does it pass all pv tests?
 
