@@ -1,6 +1,6 @@
 # 16717A Redux
 
-TODO 3D render
+![3D Render](./render.png)
 
 # Quick Stats
 * Dimensions: 366.75mm x 206mm x 1.6mm
