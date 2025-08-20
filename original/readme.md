@@ -2,6 +2,8 @@
 
 Note: While this board design is meant to match the original as closely as possible, I have not had it manufactured or tested.  Use at your own risk.
 
+![3D Render](./render.png)
+
 # Theory of Operation
 
 You may also be interested in reading the official "Theory of Operation" section of the [Agilent manual](https://docs.alltest.net/manual/Alltest-Agilent-Keysight-16717A-ServiceManual-21826-.pdf), starting on page 146.  However I am hesitant to take anything it says at face value, because they describe some things which simply cannot be true based on the actual 16717A hardware.  I suspect that they probably started by copying the "Theory of Operation" section of a previous board (16712A maybe?) and missed some changes to how things work on the newer boards.  I'll try to note these issues below.
