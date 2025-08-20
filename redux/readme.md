@@ -100,7 +100,8 @@ The first goal is to get a 16700A/B to recognize the board as a 16717A module, w
 * The 19.6608 MHz crystal oscillator which is the FPGA's main clock source
 * Two of the ribbon cable connectors near the front and some associated resistors and capacitors (the FPGA needs these to determine whether it is the master or an extension board)
 
-TODO add board images highlighting components that need to be populated
+![Front](./f1.png)
+![Back](./b1.png)
 
 Note: I don't recommend installing the back panel bracket/screws yet.  You can use zip ties to create pull loops for removing the board from a mainframe after testing.
 
@@ -189,7 +190,8 @@ Once you are confident that all the BGA balls are attached properly, you can ins
 * ECL clock buffer for the 100 MHz backplane clock, along with associated passives and the -3.3V power rail passives
 * Some additional passives near the FPGA, related to ASIC control signals
 
-TODO add board images highlighting components that need to be populated
+![Front](./f2.png)
+![Back](./b2.png)
 
 It's probably not necessary for testing at this point, but I would recommend reattaching the ASIC heatsinks with some thermal compound before any attempt to power up the board.  I forgot this during one test, yet after running `pv` tests and then idling for a few minutes and shutting down the system, the heatspreaders felt cold to the touch.  Yet HP put large heatsinks on these chips for a reason.  Perhaps they only put out significant heat when running a high speed acquisition, but better to be safe than sorry.
 
@@ -233,7 +235,8 @@ If any of the other tests fail, it's likely due to an unconnected BGA ball somew
 
 Next, populate the 34 DRAM chips, decoupling capacitors beneath them on the bottom side, and the RAS/CAS termination networks on the top side.
 
-TODO add board images highlighting components that need to be populated
+![Front](./f3.png)
+![Back](./b3.png)
 
 Once these have been populated, `pv` should report all the `vram*` tests passing, as well as `clksTest`, and all of the previously passing tests:
 
@@ -284,7 +287,8 @@ To make progress on the rest of the `pv` tests, we need to get the internal test
 * The AD7841 DAC and two AD586 references, along with their associated passives
 * The PCF8584 controller, 74CBT3125 mux, and a few remaining passives on the FPGA side of the board
 
-TODO add board images highlighting components that need to be populated
+![Front](./f4.png)
+![Back](./b4.png)
 
 At this point, the only parts not populated should be zoom-related, and we effectively have a 16715A board that thinks it's a 16717A.  Only the last five `pv` tests should fail:
 
@@ -345,7 +349,8 @@ Once everything else is working, we can add the timing zoom components:
 * +3.3V and -1.7V linear regulators for the PLL and zoom clock chips
 * All remaining passives (except the 16717A board identification resistor)
 
-TODO add board images highlighting components that need to be populated
+![Front](./f5.png)
+![Back](./b5.png)
 
 Once everything is complete, cross your fingers and hope that `pv` shows no failures:
 
