@@ -23,7 +23,11 @@ The 16717A uses an 8-layer board, four of which are signals:
 I wasn't able to determine individual core/prepreg thicknesses, but it didn't feel like any particular layers were significantly thicker than others, so I'm guessing the dielectric thickness of all FR4 layers is somewhere around 0.2mm.
 
 ## Input Conditioning & Comparators
-Each signal coming in from the probe pods is length-matched and goes through a series passive component which I can't identify, but is probably a very low value inductor/ferrite/fuse (0603 package; green with a white stripe, but my LCR meter just says it's a < 1 ohm resistor).  Next each signal is terminated to ground through a 10k resistor, and further conditioned by several RC networks before being fed into one of 8 high speed comparator ASICs (part number 1NB4-5036).  Each chip has 9 signal inputs (8 data bits + 1 clock).  Each probe pod has 16 data bits and only 1 clock, so only half the comparators actually use all the inputs; the others have one input grounded.  There is also a test clock input, and when enabled it overrides the signals on all of the inputs.
+Each signal coming in from the probe pods is length-matched and goes through an 0603 component which I can't identify, but they appear to be some kind of inductor.  At first I thought these might be fuses, but after looking at them under a microscope, it's clear they feature a spiral planar coil with 6 turns.  My LCR meter just says they're 0.1 ohm resistors.
+
+![Unknown Inductor](../scans/DSC00572.jpg)
+
+Next each signal is terminated to ground through a 10k resistor, and further conditioned by several RC networks before being fed into one of 8 high speed comparator ASICs (part number 1NB4-5036).  Each chip has 9 signal inputs (8 data bits + 1 clock).  Each probe pod has 16 data bits and only 1 clock, so only half the comparators actually use all the inputs; the others have one input grounded.  There is also a test clock input, and when enabled it overrides the signals on all of the inputs.
 
 The reference voltage for each chip can be configured independently, coming from an AD7841 8-channel DAC.  Interestingly, while the DAC has 8 outputs, each corresponding to one comparator chip and half of a pod's data signals, it seems there's no way in software to set half of a pod to a different threshold than the other half.
 
