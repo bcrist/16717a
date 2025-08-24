@@ -99,6 +99,7 @@ The first goal is to get a 16700A/B to recognize the board as a 16717A module, w
 * The Actel A32140DX FPGA (the large PQFP-208 package near the backplane connector) and some decoupling capacitors
 * The 19.6608 MHz crystal oscillator which is the FPGA's main clock source
 * Two of the ribbon cable connectors near the front and some associated resistors and capacitors (the FPGA needs these to determine whether it is the master or an extension board)
+* The ribbon cable between the previously mentioned connectors
 
 ![Front](./f1.png)
 ![Back](./b1.png)
@@ -229,6 +230,8 @@ If any of the tests shown passing above fail, try setting `d d=9` and/or `d r=9`
 
 If you see `bpClkTest` reporting a frequency of 0 for both Chip 8 and Chip 9, the problem may lie with the ECL clock buffer near the backplane connector, or one of the passives near it.  Check for shorts and verify that it has continueity to the proper ASIC pins.  If only one of the chips reports a bad frequencies, but you're reasonably certain that the clock balls are making a good connection, the ASIC may have gone bad.
 
+If `flagTest` fails, first check the 74FB2040 transceiver or replace it if you have a spare.  If that doesn't fix the problem it's probably a bad FPGA or ASIC.
+
 If any of the other tests fail, it's likely due to an unconnected BGA ball somewhere, or a bad ASIC.
 
 ## 3. DRAM
@@ -277,22 +280,52 @@ To make progress on the rest of the `pv` tests, we need to get the internal test
 
 * The 100LVEL14 clock buffer chip and related passives
 * The 10EL34 clock divider chip and related passives
-* The remaining ribbon cable connectors and some miscellaneous capacitors nearby
-* All of the 1NB4-5036 comparator chips and related passives (though if you want to, you could save the input filtering RC networks for later, since they add up to around 400 individual parts, and aren't needed if you aren't measuring real signals)
+* All of the 1NB4-5036 comparator chips and related passives
 * A variety of miscellaneous capacitors and resistors near the comparators
+* A few remaining passives on the FPGA side of the board
 * All of the 4816P-B07-000 custom resistor networks
-* Two TPS2011 high-side switches
 * The -5.2V backplane ferrite and bulk capacitor
 * Two small capacitors on the -12V and +12V rails, under the backplane connector
 * The AD7841 DAC and two AD586 references, along with their associated passives
-* The PCF8584 controller, 74CBT3125 mux, and a few remaining passives on the FPGA side of the board
+
+Some other parts are not actually required by any `pv` tests, but which are best populated now:
+* The PCF8584 controller and 74CBT3125 mux
+* Two TPS2011 high-side switches
+* The remaining ribbon cable connectors and some miscellaneous capacitors nearby
+* The probe connectors
 
 ![Front](./f4.png)
 ![Back](./b4.png)
 
-At this point, the only parts not populated should be zoom-related, and we effectively have a 16715A board that thinks it's a 16717A.  Only the last five `pv` tests should fail:
+`cmpTest` and `calTest` should now pass in `pv`:
+```
+pv> x modtests
+Mod   C: TEST passed       # "vramDataTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramAddrTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramCellTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramUnloadTest" (1, 0, 1)
+Mod   C: TEST passed       # "chipRegTest" (1, 0, 1)
+Mod   C: TEST passed       # "bpClkTest" (1, 0, 1)
+Mod   C: TEST passed       # "cmpTest" (1, 0, 1)
+Mod   C: TEST passed       # "icrTest" (1, 0, 1)
+Mod   C: TEST passed       # "flagTest" (1, 0, 1)
+Mod   C: TEST passed       # "armTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramSerDataTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramSerCellTest" (1, 0, 1)
+Mod   C: TEST passed       # "clksTest" (1, 0, 1)
+Mod   C: TEST passed       # "calTest" (1, 0, 1)
+Mod   C: TEST FAILED       # "zoomDataTest" (1, 1, -1)
+Mod   C: TEST FAILED       # "zoomMasterTest" (1, 1, -1)
+Mod   C: TEST FAILED       # "fisoRedundancyTest" (1, 1, -1)
+Mod   C: TEST FAILED       # "zoomAcqTest" (1, 1, -1)
+Mod   C: TEST FAILED       # "zoomChipSelTest" (1, 1, -1)
+```
 
-TODO add pv output
+At this point, the only parts not populated should be zoom-related, and we effectively have a 16715A board that thinks it's a 16717A.  In fact, if you move the identification resistor to the 16715A setting, you'll now see all the `pv` tests pass.
+
+### `cmpTest` Debugging
+
+If you decide to test with only some of the comparators populated, make sure that you do populate all four of the termination networks for the 50MHz test clock.  Otherwise reflections may cause issues even on the comparators that you have populated.
 
 Note: The output of `cmpTest` with debug result logging enabled can be really useful, but it can also be tricky to decipher.  At first glance, it seems like there's way too much output.  It can be helpful to see what it looks like when none of the comparators are populated:
 ```
@@ -332,7 +365,97 @@ pv> x cmpTest
 ```
 We can see that it tests each pod individually, and each each test consists of several parts: first testing that all the signals for the pod report high/low when the threshold voltage is well above or below the test clock signal ("Cal Clk No Act." and "Cal Clk Levels") and only then testing that the 50MHz test clock signal is seen on all signals of the pod when the threshold voltage is set in the middle of the test clock ("Cal Clk Activity").  In all three cases, all the comparators for other pods have their thresholds configured so that no signals are seen, so if you see `B` for any of the `.` spots above, you probably have a bad comparator or DAC, or maybe a shorted resistor, rather than an open circuit on one of your signal lines.
 
-TODO if you set the identification resistor for 16715A, does it pass all pv tests?
+If there's a problem with the test clock generation, but the DAC is working, you'll see something like this:
+```
+pv> x cmpTest
+  Mod B: Measurement Did Not Complete.
+  Check POD1 Thresholds:
+    Slot B, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot B, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot B, Chip 9: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot B, Chip 8: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot B, Chip 9: . ........ ........  B BBBBBBBB BBBBBBBB  Cal Clk Activity
+    Slot B, Chip 8: . ........ ........  . ........ ........  Cal Clk Activity
+  Check POD2 Thresholds:
+    Slot B, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot B, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot B, Chip 9: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot B, Chip 8: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot B, Chip 9: B BBBBBBBB BBBBBBBB  . ........ ........  Cal Clk Activity
+    Slot B, Chip 8: . ........ ........  . ........ ........  Cal Clk Activity
+  Check POD3 Thresholds:
+    Slot B, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot B, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot B, Chip 9: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot B, Chip 8: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot B, Chip 9: . ........ ........  . ........ ........  Cal Clk Activity
+    Slot B, Chip 8: . ........ ........  B BBBBBBBB BBBBBBBB  Cal Clk Activity
+  Check POD4 Thresholds:
+    Slot B, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot B, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot B, Chip 9: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot B, Chip 8: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot B, Chip 9: . ........ ........  . ........ ........  Cal Clk Activity
+    Slot B, Chip 8: B BBBBBBBB BBBBBBBB  . ........ ........  Cal Clk Activity
+> Slot B: Comparator Test Failed!
+```
+Check the 100LVEL14, 10EL34, surrounding passives, and the -3.3V and -5.1V rails.
+
+After these first three tests, `cmpTest` turns off the test clock signal and verifies that none of the actual input signals are toggling, and verifies that the termination networks are pulling them all to ground.  If you leave the signal inputs floating, you'll likely see something like this:
+
+```
+pv> x cmpTest
+  Mod C: Measurement Did Not Complete.
+  Check POD1 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Activity
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Activity
+  Check POD2 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Activity
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Activity
+  Check POD3 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Activity
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Activity
+  Check POD4 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk No Act.
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Levels
+    Slot C, Chip 9: . ........ ........  . ........ ........  Cal Clk Activity
+    Slot C, Chip 8: . ........ ........  . ........ ........  Cal Clk Activity
+  Check POD1 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Ext Data No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Ext Data No Act.
+    Slot C, Chip 9: . ........ ........  B BBBBB.BB BBB...BB  Ext Data Levels
+    Slot C, Chip 8: . ........ ........  . ........ ........  Ext Data Levels
+  Check POD2 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Ext Data No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Ext Data No Act.
+    Slot C, Chip 9: B BBB..BBB BBB...BB  . ........ ........  Ext Data Levels
+    Slot C, Chip 8: . ........ ........  . ........ ........  Ext Data Levels
+  Check POD3 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Ext Data No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Ext Data No Act.
+    Slot C, Chip 9: . ........ ........  . ........ ........  Ext Data Levels
+    Slot C, Chip 8: . ........ ........  B BBB...BB BBB...BB  Ext Data Levels
+  Check POD4 Thresholds:
+    Slot C, Chip 9: . ........ ........  . ........ ........  Ext Data No Act.
+    Slot C, Chip 8: . ........ ........  . ........ ........  Ext Data No Act.
+    Slot C, Chip 9: . ........ ........  . ........ ........  Ext Data Levels
+    Slot C, Chip 8: B BBBBBBBB BBBBBBBB  . ........ ........  Ext Data Levels
+> Slot C: Comparator Test Failed!
+```
 
 ## 5. Timing Zoom
 
@@ -354,7 +477,28 @@ Once everything else is working, we can add the timing zoom components:
 
 Once everything is complete, cross your fingers and hope that `pv` shows no failures:
 
-TODO add pv output
+```
+pv> x modtests
+Mod   C: TEST passed       # "vramDataTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramAddrTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramCellTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramUnloadTest" (1, 0, 1)
+Mod   C: TEST passed       # "chipRegTest" (1, 0, 1)
+Mod   C: TEST passed       # "bpClkTest" (1, 0, 1)
+Mod   C: TEST passed       # "cmpTest" (1, 0, 1)
+Mod   C: TEST passed       # "icrTest" (1, 0, 1)
+Mod   C: TEST passed       # "flagTest" (1, 0, 1)
+Mod   C: TEST passed       # "armTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramSerDataTest" (1, 0, 1)
+Mod   C: TEST passed       # "vramSerCellTest" (1, 0, 1)
+Mod   C: TEST passed       # "clksTest" (1, 0, 1)
+Mod   C: TEST passed       # "calTest" (1, 0, 1)
+Mod   C: TEST passed       # "zoomDataTest" (1, 0, 1)
+Mod   C: TEST passed       # "zoomMasterTest" (1, 0, 1)
+Mod   C: TEST passed       # "fisoRedundancyTest" (1, 0, 1)
+Mod   C: TEST passed       # "zoomAcqTest" (1, 0, 1)
+Mod   C: TEST passed       # "zoomChipSelTest" (1, 0, 1)
+```
 
 There's only two things left to test now:
 * Testing the board with real probes and signals.  I'll let you decide exactly how you want to do that.  If `pv` doesn't report any errors, but something isn't working, it's likely either a faulty comparator chip, a problem with one of the input filtering networks, or a bad probe/cable.
